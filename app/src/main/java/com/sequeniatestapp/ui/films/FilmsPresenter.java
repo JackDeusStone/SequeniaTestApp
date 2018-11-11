@@ -10,6 +10,7 @@ public class FilmsPresenter {
 
     public FilmsPresenter(FilmsContract.View view){
         mView = view;
+        mView.onRefreshLIst(Service.getInstance().getFilmsManager().getFilms());
     }
 
     public void fetchFilms(){

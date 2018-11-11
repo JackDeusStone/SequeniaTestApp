@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SequeniaTestApp</string>
+
+    <string name="errorRating">нет данных</string>
+    <string name="errorDescription">Нет описания...</string>
+    <string name="errorAvatar">Изображение \nотсутствует</string>
+    <string name="years">Год:</string>
+    <string name="rating">Рейтинг:</string>
+
+    <string name="errorRequest">Ошибка загрузки данных</string>
 </resources>

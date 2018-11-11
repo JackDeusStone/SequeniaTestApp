@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
+        app:title="Фильмы"
         android:id="@+id/filmsToolbar"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         android:id="@+id/filmsPb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"/>
+        style="?android:attr/progressBarStyleHorizontal" />
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/filmsRv"

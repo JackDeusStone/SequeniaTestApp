@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class FilmsActivity extends AppCompatActivity implements FilmsContract.View, FilmsAdapter.FilmsAdapterListener {
 
+    private static final String FILM_ID = "filmId";
+
     @BindView(R.id.filmsToolbar) Toolbar mToolbar;
     @BindView(R.id.filmsPb) ProgressBar mProgressBar;
     @BindView(R.id.filmsRv) RecyclerView mRecyclerView;
@@ -36,7 +38,12 @@ public class FilmsActivity extends AppCompatActivity implements FilmsContract.Vi
         setContentView(R.layout.activity_films);
         ButterKnife.bind(this);
 
+        initAdapter();
+
         mPresenter = new FilmsPresenter(this);
+    }
+
+    private void initAdapter(){
         mFilmsAdapter = new FilmsAdapter(this);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -62,7 +69,7 @@ public class FilmsActivity extends AppCompatActivity implements FilmsContract.Vi
 
     @Override
     public void makeErrorToast() {
-        Toast.makeText(this, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.errorRequest), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -73,7 +80,7 @@ public class FilmsActivity extends AppCompatActivity implements FilmsContract.Vi
     @Override
     public void moveToFilmById(int id) {
         Intent intent = new Intent(this, DetailsFilmActivity.class);
-        intent.putExtra("filmId", id);
+        intent.putExtra(FILM_ID, id);
         startActivity(intent);
     }
 }

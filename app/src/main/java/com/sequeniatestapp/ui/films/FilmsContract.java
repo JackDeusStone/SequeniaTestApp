@@ -15,8 +15,4 @@ public interface FilmsContract {
 
     }
 
-    interface Presenter{
-
-    }
-
 }
