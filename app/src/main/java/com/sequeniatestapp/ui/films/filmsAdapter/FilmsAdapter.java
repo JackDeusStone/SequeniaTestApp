@@ -15,6 +15,9 @@ import com.sequeniatestapp.model.enitty.filmItem.GeneralFilmItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class FilmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements FilmHolder.FilmHolderListener {
@@ -80,6 +83,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void refreshAdapter(List<Film> films){
         mFilmItems.clear();
+
         makeGroupList(films);
         notifyDataSetChanged();
     }
@@ -92,15 +96,15 @@ public class FilmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void makeGroupList(List<Film> films){
 
-        ArrayMap<String, List<Film>> groupArrayMap = makeGroupArrayMap(films);
+        LinkedHashMap<String, List<Film>> groupHashMap = makeGroupArrayMap(films);
 
-        for (String date : groupArrayMap.keySet()) {
+        for (String date : groupHashMap.keySet()) {
             DateFilmItem dateItem = new DateFilmItem();
             dateItem.setDate(date);
             mFilmItems.add(dateItem);
 
             List<GeneralFilmItem> tmpList = new ArrayList<>();
-            for (Film film : groupArrayMap.get(date)) {
+            for (Film film : groupHashMap.get(date)) {
                 GeneralFilmItem generalItem = new GeneralFilmItem();
                 generalItem.setFilm(film);
                 tmpList.add(generalItem);
@@ -110,21 +114,23 @@ public class FilmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    private ArrayMap<String, List<Film>> makeGroupArrayMap(List<Film> films){
+    private LinkedHashMap<String, List<Film>> makeGroupArrayMap(List<Film> films){
 
-        ArrayMap<String, List<Film>> groupArrayMap = new ArrayMap<>();
+        LinkedHashMap<String, List<Film>> groupHashMap = new LinkedHashMap<>();
+
+        Collections.sort(films, (o1, o2) -> o1.getYear().compareTo(o2.getYear()));
 
         for (Film film : films){
             String hashMapKey = String.valueOf(film.getYear());
-            if (groupArrayMap.containsKey(hashMapKey)) {
-                groupArrayMap.get(hashMapKey).add(film);
+            if (groupHashMap.containsKey(hashMapKey)) {
+                groupHashMap.get(hashMapKey).add(film);
             } else {
                 List<Film> list = new ArrayList<>();
                 list.add(film);
-                groupArrayMap.put(hashMapKey, list);
+                groupHashMap.put(hashMapKey, list);
             }
         }
 
-        return groupArrayMap;
+        return groupHashMap;
     }
 }
