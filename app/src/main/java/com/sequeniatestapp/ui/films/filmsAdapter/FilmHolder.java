@@ -47,7 +47,7 @@ public class FilmHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    @OnClick(R.id.holderFilmRlRoot)
+    @OnClick(R.id.holderFilmMcvRoot)
     public void clickFilm(){
         if (mFilmHolderListener != null){
             mFilmHolderListener.onFilmClick(mPosition);
